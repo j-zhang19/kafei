@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { renderLinkedList } from '../dataStructures/LinkedList';
+import { LinkedList, renderLinkedList } from '../dataStructures/LinkedList';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { useControls, button } from 'leva';
+import { useControls, button } from 'leva';  // Import controls from Leva
+
 
 const LinkedListPage = () => {
-    const [nodes, setNodes] = useState([]);
+    const linkedListRef = useRef(new LinkedList());
+    const [sceneRef, setSceneRef] = useState(null);
 
-    // Leva Controls for managing Linked List
-    const { nodeValue, addNode, deleteNode } = useControls({
-        nodeValue: { value: '', label: 'Node Value' },
-        addNode: button(() => {
-            // Add new node when button is clicked
-            setNodes(prevNodes => [...prevNodes, nodeValue]);
-            console.log('Node added:', nodeValue);
-        }),
-        deleteNode: button(() => {
-            // Delete the last node when button is clicked
-            setNodes(prevNodes => prevNodes.slice(0, -1));
-            console.log('Node deleted');
+    const {None} = useControls({
+        "reset camera": button(() => {
+            console.log(sceneRef);
         }),
     });
 
+
     useEffect(() => {
         const scene = new THREE.Scene();
+        setSceneRef(scene);
+
         const light = new THREE.PointLight(0xffffff, 1500);
         light.position.set(10, 10, 20);
         scene.add(light);
@@ -38,12 +34,13 @@ const LinkedListPage = () => {
         document.body.appendChild(renderer.domElement);
 
         // Call your renderLinkedList function here to add the 3D objects
-        renderLinkedList(scene, nodes); // Pass `nodes` state to render the updated list
+        renderLinkedList(scene, linkedListRef.current);
 
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
-        controls.dampingFactor = 0.25;
+        controls.dampingFactor = 0.1;
         controls.screenSpacePanning = false;
+
 
         // Animation loop
         const animate = () => {
@@ -66,15 +63,55 @@ const LinkedListPage = () => {
             window.removeEventListener('resize', onResize);
             document.body.removeChild(renderer.domElement);
         };
-    }, [nodes]); // Re-run the effect whenever `nodes` changes
+    }, []);
+
+    const updateScene = () => {
+        if (!sceneRef) return;
+
+        // Remove everything before re-rendering
+        while (sceneRef.children.length > 0) {
+            sceneRef.remove(sceneRef.children[0]);
+        }
+
+        const light = new THREE.PointLight(0xffffff, 1500);
+        light.position.set(10, 10, 20);
+        sceneRef.add(light);
+
+        renderLinkedList(sceneRef, linkedListRef.current);
+    };
+
+    const [inputValue, setInputValue] = useState('');
 
     return (
         <div>
             <h1 style={{ position: 'absolute', top: '10px', left: '10px', color: '#fff' }}>
                 Linked list visualization
             </h1>
+
+            {/* Controls UI */}
+            <div style={{ position: 'absolute', top: '60px', left: '10px', color: '#fff' }}>
+                <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    placeholder="Node value"
+                />
+                <button onClick={() => {
+                    linkedListRef.current.append(inputValue);
+                    updateScene();
+                }}>
+                    Add Node
+                </button>
+                <button onClick={() => {
+                    linkedListRef.current.delete(inputValue);
+                    updateScene();
+                }}>
+                    Delete Node
+                </button>
+            </div>
         </div>
     );
 };
+
 
 export default LinkedListPage;
