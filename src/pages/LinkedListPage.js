@@ -25,7 +25,8 @@ const LinkedListPage = () => {
         scene.add(light);
 
         // Camera setup
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        // const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 1000 );
         camera.position.z = 10; // Ensure camera is placed far enough back
 
         // Renderer setup
