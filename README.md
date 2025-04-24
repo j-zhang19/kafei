@@ -1,3 +1,3 @@
 # kafei
 
-Three.js
+Three.js journey
