@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/j-zhang19/kafei#readme",
   "dependencies": {
+    "gsap": "3.12",
+    "lil-gui": "^0.20.0",
     "three": "^0.176.0",
     "vite": "^6.3.3",
     "vite-plugin-restart": "^0.4.2"
