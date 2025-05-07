@@ -5,6 +5,9 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
+
+const debugObject = {}
+
 // GUI
 const gui = new GUI()
 
@@ -73,9 +76,10 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace
 
 // Font loader
 const fontLoader = new FontLoader()
+
 fontLoader.load('./fonts/optimer_regular.typeface.json', (font) => {
     const textGeometry = new TextGeometry(
-        'Hello World! :)',
+        "Hello World!",
         {
             font: font,
             size: 0.5,
@@ -98,6 +102,7 @@ fontLoader.load('./fonts/optimer_regular.typeface.json', (font) => {
     scene.add(text)
     objects.push(text) // to make it rotate lol
 })
+
 
 
 /**
@@ -143,9 +148,9 @@ material.alphaMap = doorAlphaTexture
 // gui.add(material, 'iridescenceIOR').min(0).max(1).step(0.0001)
 // gui.add(material.iridescenceThicknessRange, '0').min(1).max(1000).step(1)
 // gui.add(material.iridescenceThicknessRange, '1').min(1).max(1000).step(1)
-material.transmission = 1
-material.ior = 1.5
-material.thickness = 0.5
+material.transmission = 0
+material.ior = 1
+material.thickness = 0
 gui.add(material, 'transmission').min(0).max(1).step(0.0001)
 gui.add(material, 'ior').min(1).max(10).step(0.0001)
 gui.add(material, 'thickness').min(0).max(1).step(0.0001)
@@ -164,21 +169,44 @@ torus.position.x = 2
 scene.add(axesHelper, sphere, plane, torus)
 
 // Lights
-// const ambientLight = new THREE.AmbientLight(0xfff, 1)
-// const pointLight = new THREE.PointLight(0xfff, 30)
-// pointLight.position.set(2, 3, 4)
-// scene.add(ambientLight)
-// scene.add(pointLight)
+debugObject.ambientLight = true
+debugObject.pointLight = true
+
+const ambientLight = new THREE.AmbientLight('yellow', 1)
+const pointLight = new THREE.PointLight('red', 30)
+pointLight.position.set(2, 3, 4)
+scene.add(ambientLight)
+scene.add(pointLight)
+
+const lightsFolder = gui.addFolder('lights')
+lightsFolder.add(debugObject, 'ambientLight').onChange((b) => { ambientLight.visible = b })
+lightsFolder.add(ambientLight, 'intensity').min(0).max(10).step(0.0001)
+lightsFolder.addColor(ambientLight, 'color')
+lightsFolder.add(debugObject, 'pointLight').onChange((b) => { pointLight.visible = b })
+lightsFolder.add(pointLight, 'intensity').min(0).max(100).step(0.0001)
+lightsFolder.addColor(pointLight, 'color')
+
 
 // Environment map
 const rgbeLoader = new RGBELoader()
+let environmentMap_ = null
 rgbeLoader.load('./textures/environmentMap/2k.hdr', (environmentMap) => {
-    environmentMap.mapping = THREE.EquirectangularReflectionMapping
-
-    scene.background = environmentMap
-    scene.environment = environmentMap
+    environmentMap_ = environmentMap
+    environmentMap_.mapping = THREE.EquirectangularReflectionMapping
+    scene.background = environmentMap_
+    scene.environment = environmentMap_
 })
 
+debugObject.useHdr = true
+gui.add(debugObject, 'useHdr').onChange((b) => {
+    if (b) {
+        scene.background = environmentMap_
+        scene.environment = environmentMap_
+    } else {
+        scene.background = null
+        scene.environment = null
+    }
+})
 
 
 /**
