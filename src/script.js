@@ -73,7 +73,7 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace
 
 // Font loader
 const fontLoader = new FontLoader()
-fontLoader.load('./fonts/helvetiker_regular.typeface.json', (font) => {
+fontLoader.load('./fonts/optimer_regular.typeface.json', (font) => {
     const textGeometry = new TextGeometry(
         'Hello World!',
         {
@@ -94,9 +94,9 @@ fontLoader.load('./fonts/helvetiker_regular.typeface.json', (font) => {
     const textMaterial = new THREE.MeshBasicMaterial()
     textMaterial.map = matcapTexture
     const text = new THREE.Mesh(textGeometry, textMaterial)
-    text.position.y = 1.2
+    text.position.y = 1.3
     scene.add(text)
-
+    objects.push(text) // to make it rotate lol
 })
 
 
