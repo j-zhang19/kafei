@@ -2,6 +2,8 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { GUI } from 'lil-gui'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 
 // GUI
 const gui = new GUI()
@@ -62,11 +64,40 @@ const doorHeightTexture = textureLoader.load('./textures/door/height.jpg')
 const doorMetalnessTexture = textureLoader.load('./textures/door/metalness.jpg')
 const doorNormalTexture = textureLoader.load('./textures/door/normal.jpg')
 const doorRoughnessTexture = textureLoader.load('./textures/door/roughness.jpg')
-const matcapTexture = textureLoader.load('./textures/matcaps/3.png')
-const gradientTexture = textureLoader.load('./textures/gradients/3.jpg')
+const matcapTexture = textureLoader.load('./textures/matcaps/8.png')
+const gradientTexture = textureLoader.load('./textures/gradients/1.jpg')
 
 doorColorTexture.colorSpace = THREE.SRGBColorSpace
 matcapTexture.colorSpace = THREE.SRGBColorSpace
+
+
+// Font loader
+const fontLoader = new FontLoader()
+fontLoader.load('./fonts/helvetiker_regular.typeface.json', (font) => {
+    const textGeometry = new TextGeometry(
+        'Hello World!',
+        {
+            font: font,
+            size: 0.5,
+            depth: 0.2,
+            curveSegments: 6,
+            bevelEnabled: true,
+            bevelThickness: 0.03,
+            bevelSize: 0.02,
+            bevelOffset: 0,
+            bevelSegments: 6,
+        }
+    )
+
+    textGeometry.center()
+
+    const textMaterial = new THREE.MeshBasicMaterial()
+    textMaterial.map = matcapTexture
+    const text = new THREE.Mesh(textGeometry, textMaterial)
+    text.position.y = 1.2
+    scene.add(text)
+
+})
 
 
 /**
