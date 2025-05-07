@@ -75,7 +75,7 @@ matcapTexture.colorSpace = THREE.SRGBColorSpace
 const fontLoader = new FontLoader()
 fontLoader.load('./fonts/optimer_regular.typeface.json', (font) => {
     const textGeometry = new TextGeometry(
-        'Hello World!',
+        'Hello World! :)',
         {
             font: font,
             size: 0.5,
