@@ -3,8 +3,10 @@
     padding: 0;
 }
 
-body,html {
+body,
+html {
     overflow: hidden;
+    background-color:rgb(255, 254, 207);
 }
 
 .webgl {
@@ -12,4 +14,41 @@ body,html {
     top: 0;
     left: 0;
     outline: none;
+}
+
+details {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    margin: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    ;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+summary::before {
+    content: '';
+    padding-left: .25rem;
+}
+
+summary:hover {
+    color: darkslateblue;
+}
+
+summary {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+details[open] summary {
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 1rem;
+    margin-bottom: 1em;
+}
+
+details>*:not(summary) {
+    margin-top: 0.5rem;
+    line-height: 1.5;
+    margin-left: 1rem;
 }

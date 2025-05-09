@@ -10,6 +10,7 @@ const debugObject = {}
 
 // GUI
 const gui = new GUI()
+gui.add({ home: () => window.location.href = '/index.html' }, 'home').name('🏠 Go to main page');
 
 /**
  * Base
@@ -117,8 +118,8 @@ fontLoader.load('./fonts/optimer_regular.typeface.json', (font) => {
 // material.specular = new THREE.Color(0xfff)
 // const material = new THREE.MeshStandardMaterial()
 const material = new THREE.MeshPhysicalMaterial()
-material.metalness = 1
-material.roughness = 1
+material.metalness = .5
+material.roughness = .5
 gui.add(material, 'metalness').min(0).max(1).step(0.0001)
 gui.add(material, 'roughness').min(0).max(1).step(0.0001)
 material.map = doorColorTexture
