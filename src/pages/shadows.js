@@ -60,7 +60,7 @@ scene.add(directionalLightCameraHelper)
 const spotlight = new THREE.SpotLight(0xffffff, 3.6, 10, Math.PI * 0.3)
 spotlight.position.set(0, 2, 2)
 const spotlight_f = gui.addFolder('spotlight').close()
-spotlight_f.add(spotlight, 'visible').setValue(false)
+spotlight_f.add(spotlight, 'visible')
 spotlight_f.add(spotlight, 'intensity').min(0).max(20).step(0.001)
 
 scene.add(spotlight)
@@ -241,8 +241,16 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-renderer.shadowMap.enabled = false
-gui.add(renderer.shadowMap, 'type').options({'BasicShadowMap': THREE.BasicShadowMap, 'PCFShadowMap': THREE.PCFShadowMap, 'PCFSoftShadowMap': THREE.PCFSoftShadowMap, 'VSMShadowMap': THREE.VSMShadowMap})
+
+renderer.shadowMapAutoUpdate = false;
+renderer.shadowMap.enabled = true
+gui.add(renderer, 'shadowMapAutoUpdate').onChange((b) => {
+    scene.traverse( (child) => { if (child.shadow) child.castShadow = b } )
+})
+
+gui.add(renderer.shadowMap, 'type').options({'BasicShadowMap': THREE.BasicShadowMap, 'PCFShadowMap': THREE.PCFShadowMap, 'PCFSoftShadowMap': THREE.PCFSoftShadowMap, 'VSMShadowMap': THREE.VSMShadowMap}).onChange(() => {
+    scene.traverse( (child) => {if( child.material ) child.material.needsUpdate=true} ) 
+})
 
 
 /**
