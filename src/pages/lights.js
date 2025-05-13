@@ -61,15 +61,15 @@ controls.enableDamping = true
 // Textures
 const textureLoader = new THREE.TextureLoader()
 
-const doorAlphaTexture = textureLoader.load('./textures/door/alpha.jpg')
-const doorAmbientOcclusionTexture = textureLoader.load('./textures/door/ambientOcclusion.jpg')
-const doorColorTexture = textureLoader.load('./textures/door/color.jpg')
-const doorHeightTexture = textureLoader.load('./textures/door/height.jpg')
-const doorMetalnessTexture = textureLoader.load('./textures/door/metalness.jpg')
-const doorNormalTexture = textureLoader.load('./textures/door/normal.jpg')
-const doorRoughnessTexture = textureLoader.load('./textures/door/roughness.jpg')
-const matcapTexture = textureLoader.load('./textures/matcaps/8.png')
-const gradientTexture = textureLoader.load('./textures/gradients/1.jpg')
+const doorAlphaTexture = textureLoader.load('/textures/door/alpha.jpg')
+const doorAmbientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
+const doorColorTexture = textureLoader.load('/textures/door/color.jpg')
+const doorHeightTexture = textureLoader.load('/textures/door/height.jpg')
+const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
+const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg')
+const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
+const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
+const gradientTexture = textureLoader.load('/textures/gradients/1.jpg')
 
 doorColorTexture.colorSpace = THREE.SRGBColorSpace
 matcapTexture.colorSpace = THREE.SRGBColorSpace
@@ -191,7 +191,7 @@ lightsFolder.addColor(pointLight, 'color')
 // Environment map
 const rgbeLoader = new RGBELoader()
 let environmentMap_ = null
-rgbeLoader.load('./textures/environmentMap/2k.hdr', (environmentMap) => {
+rgbeLoader.load('/textures/environmentMap/2k.hdr', (environmentMap) => {
     environmentMap_ = environmentMap
     environmentMap_.mapping = THREE.EquirectangularReflectionMapping
     scene.background = environmentMap_
