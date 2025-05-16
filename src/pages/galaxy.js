@@ -28,7 +28,7 @@ for (let i = 1; i < 14; i++) { particlesTextures[i] = textureLoader.load('/textu
  */
 const parameters = {
     count: 100000,
-    size: 0.01,
+    size: 0.02,
     radius: 5,
     branches: 3,
     spin: 1.5,
@@ -92,7 +92,6 @@ function generateGalaxy() {
     particlesMaterial = new THREE.PointsMaterial({
         size: parameters.size,
         sizeAttenuation: true,
-        color: 'yellow',
         transparent: true,
         // alphaMap: particlesTextures[9],
         depthWrite: false,
