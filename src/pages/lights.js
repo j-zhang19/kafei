@@ -61,13 +61,13 @@ controls.enableDamping = true
 // Textures
 const textureLoader = new THREE.TextureLoader()
 
-const doorAlphaTexture = textureLoader.load('/textures/door/alpha.jpg')
-const doorAmbientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.jpg')
-const doorColorTexture = textureLoader.load('/textures/door/color.jpg')
-const doorHeightTexture = textureLoader.load('/textures/door/height.jpg')
-const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.jpg')
-const doorNormalTexture = textureLoader.load('/textures/door/normal.jpg')
-const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.jpg')
+const doorAlphaTexture = textureLoader.load('/textures/door/alpha.webp')
+const doorAmbientOcclusionTexture = textureLoader.load('/textures/door/ambientOcclusion.webp')
+const doorColorTexture = textureLoader.load('/textures/door/color.webp')
+const doorHeightTexture = textureLoader.load('/textures/door/height.webp')
+const doorMetalnessTexture = textureLoader.load('/textures/door/metalness.webp')
+const doorNormalTexture = textureLoader.load('/textures/door/normal.webp')
+const doorRoughnessTexture = textureLoader.load('/textures/door/roughness.webp')
 const matcapTexture = textureLoader.load('/textures/matcaps/8.png')
 const gradientTexture = textureLoader.load('/textures/gradients/1.jpg')
 
