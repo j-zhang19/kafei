@@ -30,13 +30,13 @@ for (let i = 1; i < 14; i++) { particlesTextures[i] = textureLoader.load('/textu
 
 // Geometry
 const particlesGeometry = new THREE.BufferGeometry()
-const count = 5000
+const count = 100000
 
 const positions = new Float32Array(count * 3) // count * (x, y, z)
 const colors = new Float32Array(count * 3) // count * (r, g, b)
 
 for (let i = 0; i < count * 3; i++) {
-    positions[i] = (Math.random() - 0.5) * 20
+    positions[i] = (Math.random() - 0.5) * 200
     colors[i] = Math.random()
 }
 
