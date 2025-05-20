@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/j-zhang19/kafei#readme",
   "dependencies": {
+    "cannon-es": "^0.20.0",
     "glob": "^11.0.2",
     "gsap": "3.12",
     "lil-gui": "^0.20.0",
