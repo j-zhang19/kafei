@@ -43,7 +43,6 @@ gltfLoader.load('/models/FlightHelmet/glTF/FlightHelmet.gltf', (gltf) => {
 
 let mixer = null
 let foxGltf = null
-let currentAction = null
 
 debugObject.foxAction = 0
 gui.add(debugObject, 'foxAction').options({'survey': 0, 'walk': 1, 'run': 2}).onChange((value) => {
