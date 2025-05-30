@@ -29,6 +29,7 @@
     "three": "^0.176.0",
     "vercel": "^41.7.3",
     "vite": "^6.3.3",
+    "vite-plugin-glsl": "^1.4.1",
     "vite-plugin-restart": "^0.4.2"
   }
 }
